@@ -32,7 +32,7 @@ define Package/ath10k-firmware-qca9377/install
 	$(INSTALL_DATA) \
 		$(PKG_BUILD_DIR)/ath10k/QCA9377/hw1.0/firmware-6.bin \
 		$(1)/lib/firmware/ath10k/QCA9377/hw1.0/firmware-6.bin
-	$(CP) $(PKG_BUILD_DIR)/ath10k/QCA9377/hw1.0/firmware-sdio-5.bin $(1)/lib/firmware/ath10k/QCA9377/hw1.1/firmware-sdio-5.bin
+	#$(CP) $(PKG_BUILD_DIR)/ath10k/QCA9377/hw1.0/firmware-sdio-5.bin $(1)/lib/firmware/ath10k/QCA9377/hw1.1/firmware-sdio-5.bin
 	$(CP) $(PKG_BUILD_DIR)/ath10k/QCA9377/hw1.0/firmware-sdio-5.bin $(1)/lib/firmware/ath10k/QCA9377/hw1.1/firmware-usb-5.bin
 endef
 $(eval $(call BuildPackage,ath10k-firmware-qca9377))
