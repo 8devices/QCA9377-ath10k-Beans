@@ -1,0 +1,24 @@
+--- a/drivers/net/wireless/ath/ath10k/core.c
++++ b/drivers/net/wireless/ath/ath10k/core.c
+@@ -650,6 +650,7 @@ static const struct ath10k_hw_params ath
+ 		.hw_clk = qca6174_clk,
+ 		.target_cpu_freq = 176000000,
+ 		.decap_align_bytes = 4,
++		.start_once = true,
+ 		.n_cipher_suites = 8,
+ 		.num_peers = TARGET_QCA9377_HL_NUM_PEERS,
+ 		.ast_skid_limit = 0x10,
+--- a/drivers/net/wireless/ath/ath10k/sdio.c
++++ b/drivers/net/wireless/ath/ath10k/sdio.c
+@@ -2670,6 +2670,11 @@ static void ath10k_sdio_remove(struct sd
+ 
+ 	flush_workqueue(ar_sdio->workqueue);
+ 	destroy_workqueue(ar_sdio->workqueue);
++
++        if (ar->is_started && ar->hw_params.start_once) {
++                ath10k_hif_stop(ar);
++                ath10k_hif_power_down(ar);
++        }
+ }
+ 
+ static const struct sdio_device_id ath10k_sdio_devices[] = {
