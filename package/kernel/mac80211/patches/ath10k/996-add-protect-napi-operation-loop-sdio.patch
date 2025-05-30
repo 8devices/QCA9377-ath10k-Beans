@@ -1,38 +1,21 @@
---- a/drivers/net/wireless/ath/ath10k/core.h
-+++ b/drivers/net/wireless/ath/ath10k/core.h
-@@ -1281,6 +1281,7 @@ struct ath10k {
- 	/* NAPI */
- 	struct net_device *napi_dev;
- 	struct napi_struct napi;
-+	bool napi_enabled;
- 
- 	struct work_struct set_coverage_class_work;
- 	/* protected by conf_mutex */
 --- a/drivers/net/wireless/ath/ath10k/sdio.c
 +++ b/drivers/net/wireless/ath/ath10k/sdio.c
-@@ -1880,7 +1880,10 @@ static int ath10k_sdio_hif_start(struct
+@@ -1880,7 +1880,7 @@ static int ath10k_sdio_hif_start(struct
  	struct ath10k_sdio *ar_sdio = ath10k_sdio_priv(ar);
  	int ret;
  
 -	napi_enable(&ar->napi);
-+	if (!ar->napi_enabled) {
-+		napi_enable(&ar->napi);
-+		ar->napi_enabled = true;
-+	}
++	ath10k_core_napi_enable(ar);
  
  	/* Sleep 20 ms before HIF interrupts are disabled.
  	 * This will give target plenty of time to process the BMI done
-@@ -2007,8 +2010,11 @@ static void ath10k_sdio_hif_stop(struct
+@@ -2007,8 +2007,7 @@ static void ath10k_sdio_hif_stop(struct
  
  	spin_unlock_bh(&ar_sdio->wr_async_lock);
  
 -	napi_synchronize(&ar->napi);
 -	napi_disable(&ar->napi);
-+	if (ar->napi_enabled) {
-+		napi_synchronize(&ar->napi);
-+		napi_disable(&ar->napi);
-+		ar->napi_enabled = false;
-+	}
++	ath10k_core_napi_sync_disable(ar);
  }
  
  #ifdef CONFIG_PM
