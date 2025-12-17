@@ -1,0 +1,19 @@
+--- a/drivers/net/wireless/ath/ath10k/mac.c
++++ b/drivers/net/wireless/ath/ath10k/mac.c
+@@ -5775,6 +5775,16 @@ static int ath10k_add_interface(struct ieee80211_hw *hw,
+ 		arvif->peer_id = HTT_INVALID_PEERID;
+ 	}
+ 
++	/* Disable WMI_VDEV_PARAM_INTRA_BSS_FWD to fix issue with communication between stations */
++	if (arvif->vdev_type == WMI_VDEV_TYPE_AP) {
++		vdev_param = ar->wmi.vdev_param->intra_bss_fwd;
++		ret = ath10k_wmi_vdev_set_param(ar, arvif->vdev_id, vdev_param, 0);
++		if (ret) {
++			ath10k_warn(ar, "failed to set vdev %i intra_bss_fwd: %d\n",
++				    arvif->vdev_id, ret);
++		}
++	}
++
+ 	if (arvif->vdev_type == WMI_VDEV_TYPE_AP) {
+ 		ret = ath10k_mac_set_kickout(arvif);
+ 		if (ret) {
