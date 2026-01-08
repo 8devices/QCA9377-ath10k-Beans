@@ -1,6 +1,14 @@
 --- a/drivers/net/wireless/ath/ath10k/mac.c
 +++ b/drivers/net/wireless/ath/ath10k/mac.c
-@@ -288,8 +288,15 @@ static int ath10k_send_key(struct ath10k
+@@ -14,6 +14,7 @@
+ #include <linux/acpi.h>
+ #include <linux/of.h>
+ #include <linux/bitfield.h>
++#include <linux/random.h>
+ 
+ #include "hif.h"
+ #include "core.h"
+@@ -288,8 +289,15 @@ static int ath10k_send_key(struct ath10k
  		key->flags |= IEEE80211_KEY_FLAG_GENERATE_IV;
  
  	if (cmd == DISABLE_KEY) {
