@@ -1,3 +1,11 @@
+## Overview and Usage
+
+This repository provides ath10k driver support for QCA9377-X wireless modules over PCIe, USB, and SDIO interfaces. It enables building the ath10k kernel driver for 8devices Black, Blue, and Red Beans modules on 3rd party or 8devices DVKs
+
+The source code is provided as is and is not guaranteed to function on third-party hardware or platforms fully, therefore some debugging might be needed. 
+Validation and testing have been performed exclusively with 8devices Beans modules on the 8devices Mango DVK platform.
+Build process, the **ath10k driver** and the corresponding **QCA9377 firmware** must be selected using `make menuconfig` for your selected platform.
+
 ![OpenWrt logo](include/logo.png)
 
 OpenWrt Project is a Linux operating system targeting embedded devices. Instead
@@ -10,14 +18,6 @@ to build a complete firmware around it; for users this means the ability for
 full customization, to use the device in ways never envisioned.
 
 Sunshine!
-
-## Overview and Usage
-
-This repository provides ath10k driver support for QCA9377-X wireless modules over PCIe, USB, and SDIO interfaces. It enables building the ath10k kernel driver for 8devices Black, Blue, and Red Beans modules on 3rd party or 8devices DVKs
-
-The source code is provided as is and is not guaranteed to function on third-party hardware or platforms fully, therefore some debugging might be needed. 
-Validation and testing have been performed exclusively with 8devices Beans modules on the 8devices Mango DVK platform.
-Build process, the **ath10k driver** and the corresponding **QCA9377 firmware** must be selected using `make menuconfig` for your selected platform.
 
 ## Download
 
