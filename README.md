@@ -4,7 +4,11 @@ This repository provides ath10k driver support for QCA9377-X wireless modules ov
 
 The source code is provided as is and is not guaranteed to function on third-party hardware or platforms fully, therefore some debugging might be needed. 
 Validation and testing have been performed exclusively with 8devices Beans modules on the 8devices Mango DVK platform.
-Build process, the **ath10k driver** and the corresponding **QCA9377 firmware** must be selected using `make menuconfig` for your selected platform.
+Build process, the **ath10k driver** and the corresponding **QCA9377 firmware** must be selected using `make menuconfig` for your selected platform as below:
+
+- CONFIG_PACKAGE_ath10k-board-qca9377=y
+- CONFIG_PACKAGE_ath10k-firmware-qca9377=y
+- CONFIG_PACKAGE_kmod-ath10k=y
 
 ![OpenWrt logo](include/logo.png)
 
